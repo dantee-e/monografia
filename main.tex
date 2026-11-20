@@ -178,18 +178,38 @@
 
 % ── RESUMO ───────────────────────────────────────────────────
 \begin{resumo}
+	Criptomoedas são meios de troca que utilizam de um sistema de blockchain para assegurar a validade das transações. Elas têm fundamentalmente uma forte dependência de sua conexão ao resto da rede, o que significa que em contextos offline não é possível realizar transações, uma grande limitação em áreas rurais ou com uma conexão ruim. Alguns protocolos criptográficos, porém, somados ao desenvolvimento e ampliamento ao suporte de TEEs, possibilitam abordagens que estendem a área de atuação de criptomoedas à contextos offline. O presente trabalho detalha uma nova dessas abordagens. A metodologia proposta explora uma abordagem que faz uso das TEEs aliadas a um protocolo DTSS com uma chave de assinatura espalhada pela rede enttre nós significativos.
 \end{resumo}
 
 % ── ABSTRACT ─────────────────────────────────────────────────
 \begin{resumo}[english]
+	Cryptocurrencies are means of exchange that make use of blockchains to assure the validity of the transactions on its network. Fundamentally, cryptocurrencies have a strong dependency on its user's connections to the network, which menas that in offline contexts, such as rural areas or areas with bad internet connection, transactions are made impossible. However, some criptographic methods, combined with development and broadened support to TEEs, make possible approaches that extend the coverage of cryptocurrencies into offline contexts. This present work details one such approach. The metodology explores an approach that employs TEEs, allied to a DTSS protocol that spreads a signature key throughout all significant nodes in the network.
 \end{resumo}
 
 % ── LISTAS ───────────────────────────────────────────────────
 \listoffigures*
 \listoftables*
 
+
 % ── LISTA DE ABREVIATURAS E SIGLAS ───────────────────────────
 \begin{siglas}
+	\item[ANC] Ambiente Não Controlado
+	\item[API] \textit{Application Programming Interface} (Interface de Programação de Aplicações)
+	\item[CAR] Chave de Assinatura da Rede
+	\item[CAs] Autoridades Certificadoras (\textit{Certificate Authorities})
+	\item[CBDC] \textit{Central Bank Digital Currency} (Moeda Digital de Banco Central)
+	\item[CVR] Chave de Verificação da Rede
+	\item[DTSS] \textit{Dynamic Threshold Signature Scheme} (Esquema de Assinatura com Limiar Dinâmico)
+	\item[FIAT] Moeda fiduciária (\textit{currency} emitida por Estado, sem lastro em commodity)
+	\item[HTTP] \textit{Hypertext Transfer Protocol} (Protocolo de Transferência de Hipertexto)
+	\item[JSON] \textit{JavaScript Object Notation} (Notação de Objetos JavaScript)
+	\item[NFT] \textit{Non-Fungible Token}
+	\item[OPS] \textit{Offline Payment System} (Sistema de Pagamento \textit{Offline})
+	\item[RA] Registro Acadêmico
+	\item[TEE] \textit{Trusted Execution Environment} (Ambiente de Execução Confiável)
+	\item[TLS] \textit{Transport Layer Security} (Segurança da Camada de Transporte)
+	\item[TUI] \textit{Terminal User Interface} (Interface de Terminal do Usuário)
+	\item[UTXO] \textit{Unspent Transaction Output} (Saída de Transação Não Gasta)
 \end{siglas}
 
 % ── SUMÁRIO ──────────────────────────────────────────────────
@@ -204,6 +224,35 @@
 
 % ══════════════════════════════════════════════════════════════
 \section{Introdução}
+
+Com a ampla adoção da tecnologia de blockchain que se observa hoje, cresce o interesse em novos modos de utilizá-la. Seja por meio das NFTs (\textit{Non-Fungible Tokens}), concebidas para combater o problema da monetização do trabalho de artistas digitais \cite{nfts}, ou pelo desenvolvimento de novas moedas digitais FIAT ($CBDC$s), como as discutidas pelo European Data Protection Supervisor \cite{edps}, e o projeto do DREX iniciado pelo Banco Central do Brasil, apesar de ter sido subsequentemente abandonado \cite{drexabandonado}. As aplicações da blockchain tornam-se, portanto, cada vez mais ubíquas.
+
+A tecnologia blockchain é fundamentalmente dependente de uma conexão com a internet ou de alguma outra forma de alcançar os nós de mineração, os quais são responsáveis pela validação das transações e pelo seu registro em blocos na cadeia. Quando blocos são registrados e propagados, eventuais discordâncias entre nós distintos são resolvidas pelo protocolo de consenso da cadeia mais longa. Sem a conectividade necessária, abrem-se brechas para vulnerabilidades de \textit{double spending}, prática na qual um agente malicioso tenta utilizar o mesmo $UTXO$ (\textit{Unspent Transaction Output}) em duas transações diferentes, comprometendo a confiabilidade da rede, o que tipicamente seria identificado e solucionado no tempo de registrar a transação \cite{nakamoto2008}.
+
+Há, contudo, demanda crescente por transações em contextos \textit{offline}. Em áreas remotas com difícil acesso à internet, ou em ambientes como aeronaves, as quais frequentemente não dispõem de conexão adequada, a realização de trocas utilizando criptomoedas pode ser impraticável. Essa limitação representa uma barreira relevante à propagação dessas tecnologias enquanto o problema não for devidamente abordado.
+
+Um dos problemas fundamentais da tecnologia blockchain é a impossibilidade de realizar transações quando em contexto \textit{offline}, ou seja, desconectado de uma rede de internet. Isso implica que, em áreas remotas ou em ambientes sem conectividade, pode ser inviável realizar trocas utilizando criptomoedas. Nesse cenário, a ausência de validação pelos nós da rede abre espaço para ataques de \textit{double spending}, comprometendo a integridade das transações e a confiança no sistema.
+
+Considerável progresso foi realizado no campo das transações \textit{offline} com tecnologia blockchain, baseando-se em grande parte no conceito de carteiras denominadas \textit{tamper-proof}, ou seja, à prova de adulteração \cite{dmitrienko2017}. Essas carteiras empregam diversas tecnologias de hardware para prevenir que agentes maliciosos modifiquem as informações armazenadas em sua memória sem inutilizar o dispositivo \cite{jie2024}. Assumindo, portanto, que é possível confiar na integridade da carteira, os participantes de uma transação têm a garantia de que não estão interagindo com dispositivos adulterados que tentem realizar \textit{double spending}. Essa premissa viabiliza a concepção de protocolos de pagamento \textit{offline} que sejam, ao mesmo tempo, seguros e práticos para o uso cotidiano.
+
+Além dos benefícios diretos à inclusão financeira digital, o desenvolvimento de uma implementação funcional pode contribuir para ampliar o debate acadêmico sobre os limites e potencialidades das criptomoedas em ambientes com conectividade restrita, bem como servir de base para trabalhos futuros na área.
+
+\subsection{Objetivos}
+
+\subsubsection{Objetivo Geral}
+
+Propor e avaliar uma implementação de carteira de criptomoedas com suporte a pagamentos \textit{offline}, comparando a abordagem proposta com as já teorizadas na literatura, com o objetivo de avançar a viabilização da tecnologia e aproximá-la da
+utilidade prática.
+
+\subsubsection{Objetivos Específicos}
+
+\begin{itemize}
+	\item Definir uma nova abordagem de pagamento \textit{offline} utilizando carteiras \textit{tamper-proof}.
+	\item Comparar a abordagem proposta com as já existentes na literatura.
+	\item Implementar uma nova criptomoeda com suporte à abordagem proposta utilizando a linguagem de programação Rust.
+	\item Comparar a implementação desenvolvida com outras já existentes.
+	\item Explorar possibilidades de implementação de carteiras \textit{tamper-proof}.
+\end{itemize}
 
 % ══════════════════════════════════════════════════════════════
 \section{Fundamentação Teórica}
