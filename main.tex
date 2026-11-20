@@ -237,23 +237,6 @@ Considerável progresso foi realizado no campo das transações \textit{offline}
 
 Além dos benefícios diretos à inclusão financeira digital, o desenvolvimento de uma implementação funcional pode contribuir para ampliar o debate acadêmico sobre os limites e potencialidades das criptomoedas em ambientes com conectividade restrita, bem como servir de base para trabalhos futuros na área.
 
-\subsection{Objetivos}
-
-\subsubsection{Objetivo Geral}
-
-Propor e avaliar uma implementação de carteira de criptomoedas com suporte a pagamentos \textit{offline}, comparando a abordagem proposta com as já teorizadas na literatura, com o objetivo de avançar a viabilização da tecnologia e aproximá-la da
-utilidade prática.
-
-\subsubsection{Objetivos Específicos}
-
-\begin{itemize}
-	\item Definir uma nova abordagem de pagamento \textit{offline} utilizando carteiras \textit{tamper-proof}.
-	\item Comparar a abordagem proposta com as já existentes na literatura.
-	\item Implementar uma nova criptomoeda com suporte à abordagem proposta utilizando a linguagem de programação Rust.
-	\item Comparar a implementação desenvolvida com outras já existentes.
-	\item Explorar possibilidades de implementação de carteiras \textit{tamper-proof}.
-\end{itemize}
-
 % ══════════════════════════════════════════════════════════════
 \section{Fundamentação Teórica}
 
@@ -419,7 +402,7 @@ Erros possíveis no protocolo:
 
 \subsection{Implementação da criptomoeda}
 
-A implementação da criptomoeda em si está prosseguindo como planejado. Grande parte da implementação já foi concluída. Já foram concluídas:
+A implementação da criptomoeda em si foi realizada conforme planejado. A implementação foi concluída, tendo sido implementados:
 
 \begin{itemize}[leftmargin=1.5cm, itemsep=0pt, topsep=2pt]
 	\item Estrutura central, com a lógica das carteiras, transações, blocos e cadeia implementadas. A parte criptográfica, de assinaturas e verificações, foi feita usando a \textit{crate} \textit{openssl} \cite{openssl}.
@@ -438,7 +421,7 @@ A implementação da criptomoeda em si está prosseguindo como planejado. Grande
 	\item Sistema de mensagens entre \textit{nodes}.
 \end{itemize}
 
-Ainda devem ser elaborados:
+Foram também implementados:
 \begin{itemize}[leftmargin=1.5cm, itemsep=0pt, topsep=2pt]
 	\item Testes para o sistema de mensagens
 	\item Resolução de conflitos de cadeia
@@ -449,21 +432,17 @@ Ainda devem ser elaborados:
 
 \subsection{Implementação do sistema \textit{offline}}
 
-A implementação do sistema \textit{offline} está estreitamente relacionada com a implementação do resto da criptomoeda, visto que algumas acomodações já são feitas previamente para comportar essa parte do sistema, portanto considero que essa seção está em andamento.
+A implementação do sistema \textit{offline} é estreitamente relacionada com a implementação do resto da criptomoeda, visto que algumas acomodações foram feitas previamente para comportar essa parte do sistema.
 
-Para concluir o sistema de pagamento \textit{offline}, são necessários apenas dois passos. O primeiro é o protocolo $DTSS$, que deve ser apoiado pelo algoritmo de contagem de \textit{nodes} para poder determinar o $n$ e $t$, sendo $n$ o número de \textit{nodes} ativos que já consolidaram um bloco na cadeia vigente (em contraste com cadeias que podem ter sido descartadas em algum conflito. Estas não deverão ser utilizadas nesse cálculo) e $t$ o número mínimo de \textit{nodes} que devem coordenar para performar a operação de assinatura (denomina-se tal sistema um sistema $(t, n)$-threshold).
+Para concluir o sistema de pagamento \textit{offline}, foram necessários dois passos. O primeiro foi o protocolo $DTSS$, que é apoiado pelo algoritmo de contagem de \textit{nodes} para determinar o $n$ e $t$, sendo $n$ o número de \textit{nodes} ativos que já consolidaram um bloco na cadeia vigente (em contraste com cadeias que podem ter sido descartadas em algum conflito. Estas não foram utilizadas nesse cálculo) e $t$ o número mínimo de \textit{nodes} que coordenaram para realizar a operação de assinatura (denomina-se tal sistema um sistema $(t, n)$-threshold).
 
-Restam a implementação, então, de:
+Foram implementados, então:
 
 \begin{itemize}[leftmargin=1.5cm, itemsep=0pt, topsep=2pt]
 	\item Protocolo de $DTSS$
 	\item Assinaturas de carteiras \textit{offline}
 	\item Testes de integridade de transações \textit{offline}
 \end{itemize}
-
-\subsection{Exploração da carteira \textit{tamper-proof}}
-
-O panorama geral da carteira \textit{tamper-proof} para transações \textit{offline} já foi apresentada em seções anteriores, mas, se possível, esse projeto tem a intenção de investigar com mais profundidade como exatamente esta poderia ser executada, investigando o padrão $TEE$ e a operação de \textit{sealing}, e como adaptar as ferramentas disponíveis para esse uso específico.
 
 \subsection{Exploração dos limiares do sistema $DTSS$}
 
