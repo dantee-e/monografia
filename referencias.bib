@@ -1,0 +1,317 @@
+@misc{nakamoto2008,
+  author = {Nakamoto, Satoshi},
+  title = {Bitcoin: A Peer-to-Peer Electronic Cash System},
+  year = {2008},
+  url = {https://bitcoin.org/bitcoin.pdf},
+  urlaccessdate = {2026-03},
+}
+
+@misc{bitcoinorg,
+  author = {{Bitcoin.org}},
+  title = {Developer Documentation},
+  year = {2025},
+  url = {https://developer.bitcoin.org/},
+  urlaccessdate = {2026-03},
+}
+
+@inproceedings{arapinis2019,
+  author = {Arapinis, Myrto and others},
+  title = {Privacy Supporting Hardware Security Modules for Offline Payments
+           with Cryptocurrency},
+  booktitle = {European Symposium on Research in Computer Security},
+  year = {2019},
+  publisher = {Springer},
+}
+
+@misc{drexbc,
+  url = {https://www.bcb.gov.br/estabilidadefinanceira/drex},
+  publisher = {Banco Central do Brasil},
+  author = {BC},
+  urlaccessdate = {2026-03},
+}
+@misc{drexabandonado,
+  url = {
+         https://g1.globo.com/economia/noticia/2025/11/10/drex-banco-central-desiste-da-moeda-digital-brasileira-mas-levara-adiante-infraestrutura.ghtml
+         },
+  publisher = {Rede Globo de Comunicações},
+  author = {Alexandro Martello},
+  urlaccessdate = {mar. 2026},
+}
+@misc{edps,
+  url = {
+         https://www.edps.europa.eu/press-publications/publications/techsonar/central-bank-digital-currency_en
+         },
+  publisher = {European Data Protection Supervisor},
+  author = {Stefano Leucci},
+  urlaccessdate = {mar. 2026},
+}
+ 
+@article{jie2024,
+  author = {Jie, Wanqing and Qiu, Wangjie and Koe, Arthur Sandor Voundi and Li,
+            Jianhong and Wang, Yin and Wu, Yaqi and Li, Jin and Zheng, Zhiming},
+  title = {A secure and flexible blockchain-based offline payment protocol},
+  journal = {IEEE Transactions on Computers},
+  volume = {73},
+  number = {2},
+  pages = {408--421},
+  year = {2024},
+  doi = {10.1109/TC.2023.3331823},
+}
+@inbook{skorobogatov2012,
+  author = "Skorobogatov, Sergei",
+  editor = "Tehranipoor, Mohammad and Wang, Cliff",
+  title = "Physical Attacks and Tamper Resistance",
+  bookTitle = "Introduction to Hardware Security and Trust",
+  year = "2012",
+  publisher = "Springer New York",
+  address = "New York, NY",
+  pages = "143--173",
+  abstract = "Many semiconductor chips used in a wide range of applications
+              require protection against physical attacks or tamper resistance.
+              These attacks assume that a direct access to the chip is possible
+              with either establishing electrical connections to signal wires or
+              at least doing some measurements. The importance of protection
+              against physical attacks is dictated by the amount of valuable and
+              sensitive information stored on the chip. This could be secret data
+              or company secrets and intellectual property (IP), electronic money
+              for service access, or banking smartcards. The security in chips
+              serves to deter prospective attackers from performing unauthorized
+              access and benefiting from it. There are many areas that rely on
+              tamper resistance of silicon chips. One of the first was car
+              industry with theft protection and car alarms. Then in the early
+              1990s service providers such as PayTV, satellite TV, and utility
+              companies realized that their service can be stolen if the access
+              and payment cards are not properly protected. From the late 1990s
+              home entertainment companies realized that their game consoles
+              became the target of dishonest users who wanted to run illegal
+              copies of the games. These days many device manufacturers from
+              computer peripherals and mobile phones to printers and computers
+              are worried about possible IP theft by third parties -- either
+              competitors or subcontractors. All the above challenges force
+              hardware engineers to find secure solutions -- either better
+              protected off-the-shelf chips or their own custom chips. As in most
+              cases it is impractical to block direct access to the device and
+              its components, protection against physical attacks became the
+              essential part of the system design. These days we have a
+              continuous battle between the manufacturers who invent new security
+              solutions learning their lessons from previous mistakes and the
+              hacker community which is constantly trying to break the protection
+              in various devices. Both sides are also constantly improving their
+              knowledge and experience. In this endless war, the front line
+              shifts forward and backward regularly. Deep down, the problem
+              concerns both economics and law. On the one hand, when dishonest
+              people try to steal property, there will be a demand to increase
+              security. On the other, reverse engineering was always part of
+              technological progress, helping to design compatible products and
+              improve existing ones. The dividing line between legal (reverse
+              engineering) and illegal (piracy) is difficult.",
+  isbn = "978-1-4419-8080-9",
+  doi = "10.1007/978-1-4419-8080-9_7",
+  url = "https://doi.org/10.1007/978-1-4419-8080-9_7",
+}
+
+@inproceedings{dmitrienko2017,
+  author = {Dmitrienko, Alexandra and Noack, David and Yung, Moti},
+  title = {Secure Wallet-Assisted Offline Bitcoin Payments with Double-Spender
+           Revocation},
+  year = {2017},
+  isbn = {9781450349444},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3052973.3052980},
+  doi = {10.1145/3052973.3052980},
+  abstract = {Bitcoin seems to be the most successful cryptocurrency so far
+              given the growing real life deployment and popularity. While
+              Bitcoin requires clients to be online to perform transactions and a
+              certain amount of time to verify them, there are many real life
+              scenarios that demand for offline and immediate payments (e.g.,
+              mobile ticketing, vending machines, etc). However, offline payments
+              in Bitcoin raise non-trivial security challenges, as the payee has
+              no means to verify the received coins without having access to the
+              Bitcoin network. Moreover, even online immediate payments are shown
+              to be vulnerable to double-spending attacks. In this paper, we
+              propose the first solution for Bitcoin payments, which enables
+              secure payments with Bitcoin in offline settings and in scenarios
+              where payments need to be immediately accepted. Our approach relies
+              on an offline wallet and deploys several novel security mechanisms
+              to prevent double-spending and to verify the coin validity in
+              offline setting. These mechanisms achieve probabilistic security to
+              guarantee that the attack probability is lower than the desired
+              threshold. We provide a security and risk analysis as well as model
+              security parameters for various adversaries. We further eliminate
+              remaining risks by detection of misbehaving wallets and their
+              revocation.We implemented our solution for mobile Android clients
+              and instantiated an offline wallet using a microSD security card.
+              Our implementation demonstrates that smooth integration over a very
+              prevalent platform (Android) is possible, and that offline and
+              online payments can practically co-exist. We also discuss
+              alternative deployment approach for the offline wallet which does
+              not leverage secure hardware, but instead relies on a deposit
+              system managed by the Bitcoin network.},
+  booktitle = {Proceedings of the 2017 ACM on Asia Conference on Computer and
+               Communications Security},
+  pages = {520–531},
+  numpages = {12},
+  keywords = {bitcoin, double-spender revocation, offline payments, secure
+              hardware, zero confirmation transactions},
+  location = {Abu Dhabi, United Arab Emirates},
+  series = {ASIA CCS '17},
+}
+
+@article{nfts,
+  title = {What is Non-fungible token (NFT)? A short discussion about NFT Terms
+           used in NFT},
+  author = {Ghelani, Diptiben},
+  journal = {Authorea Preprints},
+  year = {2022},
+  publisher = {Authorea},
+}
+
+@article{pappupuf,
+  title = {Physical one-way functions},
+  author = {Pappu, Ravikanth and Recht, Ben and Taylor, Jason and Gershenfeld,
+            Neil},
+  journal = {Science},
+  volume = {297},
+  number = {5589},
+  pages = {2026--2030},
+  year = {2002},
+  publisher = {American Association for the Advancement of Science},
+}
+
+@article{omtptee,
+  author = {{Open Mobile Terminal Platform}},
+  title = {Advanced Trusted Environment: {OMTP} {TR1}},
+  institution = {Open Mobile Terminal Platform (OMTP)},
+  year = {2009},
+  version = {1.1},
+  url = {
+         https://www.gsma.com/newsroom/wp-content/uploads/2012/03/omtpadvancedtrustedenvironmentomtptr1v11.pdf
+         },
+  urlaccessdate = {2026-03-19},
+}
+
+@article{ianov2021,
+  author = {Nikolay Ivanov and Qiben Yan},
+  title = {System-Wide Security for Offline Payment Terminals},
+  journal = {CoRR},
+  volume = {abs/2107.08490},
+  year = {2021},
+  url = {https://arxiv.org/abs/2107.08490},
+  eprinttype = {arXiv},
+  eprint = {2107.08490},
+  timestamp = {Thu, 22 Jul 2021 11:14:11 +0200},
+  biburl = {https://dblp.org/rec/journals/corr/abs-2107-08490.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+}
+
+
+@article{huayou2026,
+  author = {Si, Huayou and Huang, Yaqian and Li, Guozheng and Qi, Yuanyuan and
+            Chen, Wei and Gao, Zhigang},
+  title = {A Method for Continuous Dual-Offline Payment of Cryptocurrency Based
+           on Asset Credentials},
+  journal = {Sensors},
+  volume = {26},
+  year = {2026},
+  number = {10},
+  article-number = {3039},
+  url = {https://www.mdpi.com/1424-8220/26/10/3039},
+  pubmedid = {42197848},
+  issn = {1424-8220},
+  abstract = {With the widespread adoption of cryptocurrencies, the ability to
+              conduct continuous offline payments has increasingly become a
+              critical technological requirement. In network-constrained
+              scenarios, current dual-offline payment technologies are useful for
+              single transactions. However, their limitations in continuous
+              payment scenarios have become increasingly evident, making them
+              unable to meet real-world application needs. This has prompted the
+              industry to demand more urgent innovations in research on
+              continuous offline payment capabilities. To address these
+              challenges, this paper proposes a continuous dual-offline payment
+              system capable of supporting multiple continuous payments. The
+              system integrates elliptic curve cryptography (ECC) and
+              zero-knowledge proof (ZKP) technology to generate secure asset
+              credentials, ensuring both immutability and privacy credentials
+              throughout the offline payment lifecycle. A dynamic credential
+              decomposition mechanism enables the splitting of input credentials
+              into change credentials and receipt credentials, facilitating
+              uninterrupted dual-offline payments between hardware wallets.
+              Additionally, it incorporates a batch verification scheme based on
+              smart contracts, utilizing zero-balance verification and chained
+              hash tracing to ensure payment uniqueness and prevent
+              double-spending attacks, thereby guaranteeing the verifiability and
+              validity of payment settlements. Experimental evaluations
+              demonstrate that the proposed system reduces gas consumption per
+              payment and improves execution efficiency during batch processing,
+              combining high security with strong performance. This research
+              provides a feasible solution for the application of digital
+              currencies in offline scenarios, carrying significant theoretical
+              value and practical significance for driving technological
+              innovation and application expansion in the cryptocurrency field.
+              In addition to cryptocurrency payments, the proposed system is also
+              applicable to IoT and sensor network environments. Many IoT devices
+              operate in disconnected or network-limited areas and require secure
+              micro-transactions. Our dual-offline payment mechanism supports
+              such scenarios, as the main cryptographic operations are
+              lightweight enough for typical IoT hardware. This further extends
+              the practical value of our system beyond traditional cryptocurrency
+              payments.},
+  doi = {10.3390/s26103039},
+}
+
+
+
+
+@article{christodorescu2020,
+  author = {Mihai Christodorescu and Wanyun Catherine Gu and Ranjit Kumaresan
+            and Mohsen Minaei and Mustafa {\"{O}}zdayi and Benjamin Price and
+            Srinivasan Raghuraman and Muhammad Saad and Cuy Sheffield and Minghua
+            Xu and Mahdi Zamani},
+  title = {Towards a Two-Tier Hierarchical Infrastructure: An Offline Payment
+           System for Central Bank Digital Currencies},
+  journal = {CoRR},
+  volume = {abs/2012.08003},
+  year = {2020},
+  url = {https://arxiv.org/abs/2012.08003},
+  eprinttype = {arXiv},
+  eprint = {2012.08003},
+  timestamp = {Thu, 21 Apr 2022 12:20:58 +0200},
+  biburl = {https://dblp.org/rec/journals/corr/abs-2012-08003.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+}
+
+@article{videira2023,
+  author = {Videira, Henrique},
+  year = {2023},
+  month = {05},
+  pages = {},
+  title = {The offline digital currency puzzle solved by a local blockchain},
+  doi = {10.48550/arXiv.2305.02290},
+}
+@software{ratatui,
+  author = {Orhun Parmaksız},
+  title = {{ratatui}: A library that's all about cooking up terminal user
+           interfaces},
+  url = {https://github.com/ratatui/ratatui},
+  date = {2024-10-21},
+  version = {0.29.0},
+  license = {MIT},
+}
+@software{openssl,
+  author = {Alex Gaynor},
+  title = {{openssl}: OpenSSL bindings},
+  url = {https://github.com/rust-openssl/rust-openssl},
+  date = {2026-06-12},
+  version = {0.10.81},
+  license = {Apache-2.0},
+}
+@mastersthesis{murchbnb,
+  author = {Mark Erhardt},
+  title = {An Evaluation of Coin Selection Strategies},
+  school = {Karlsruhe Institute of Technology},
+  year = {2016},
+  type = {Master's Thesis},
+  month = oct,
+  url = {https://murch.one/erhardt2016coinselection.pdf},
+}

@@ -1,4 +1,3 @@
-
 % Passa hidelinks ao hyperref ANTES do abntex2 carregá-lo
 \PassOptionsToPackage{hidelinks}{hyperref}
 \documentclass[
@@ -67,7 +66,7 @@
 \pagestyle{abntpaginacao}
 
 % ── Dados do documento ───────────────────────────────────────
-\titulo{Implementação de Carteira de Criptomoedas com Suporte a Pagamentos \textit{offline} — Relatório de desenvolvimento do primeiro semestre de 2026}
+\titulo{Implementação de Carteira de Criptomoedas com Suporte a Pagamentos \textit{offline}}
 \autor{Dante Martini Chiarelli Ramacciotti}
 \local{Bauru}
 \data{Março/2026}
@@ -77,12 +76,8 @@
   \par Faculdade de Ciências
   \par Departamento de Computação
 }
-\tipotrabalho{Proposta de Trabalho de Conclusão de Curso}
-\preambulo{Proposta para Trabalho de Conclusão de Curso
-do Curso de Bacharelado em Ciência da
-Computação da Universidade Estadual Paulista
-``Júlio de Mesquita Filho'', Faculdade de
-Ciências, campus Bauru }
+\tipotrabalho{Trabalho de Conclusão de Curso}
+\preambulo{Trabalho de Conclusão de Curso do Curso de Bacharelado em Ciência da Computação da Universidade Estadual Paulista ``Júlio de Mesquita Filho'', Faculdade de Ciências, campus Bauru}
 
 % ══════════════════════════════════════════════════════════════
 \begin{document}
@@ -165,6 +160,38 @@ Ciências, campus Bauru }
 	\end{center}
 \end{folhaderosto}
 
+% ── FICHA CATALOGRÁFICA ──────────────────────────────────────
+\begin{fichacatalografica}
+\end{fichacatalografica}
+
+% ── FOLHA DE APROVAÇÃO ───────────────────────────────────────
+\begin{folhadeaprovacao}
+\end{folhadeaprovacao}
+
+% ── AGRADECIMENTOS ───────────────────────────────────────────
+\begin{agradecimentos}
+\end{agradecimentos}
+
+% ── EPÍGRAFE ─────────────────────────────────────────────────
+\begin{epigrafe}
+\end{epigrafe}
+
+% ── RESUMO ───────────────────────────────────────────────────
+\begin{resumo}
+\end{resumo}
+
+% ── ABSTRACT ─────────────────────────────────────────────────
+\begin{resumo}[english]
+\end{resumo}
+
+% ── LISTAS ───────────────────────────────────────────────────
+\listoffigures*
+\listoftables*
+
+% ── LISTA DE ABREVIATURAS E SIGLAS ───────────────────────────
+\begin{siglas}
+\end{siglas}
+
 % ── SUMÁRIO ──────────────────────────────────────────────────
 \pdfbookmark[0]{\contentsname}{toc}
 \renewcommand{\contentsname}{SUMÁRIO}
@@ -175,8 +202,11 @@ Ciências, campus Bauru }
 \textual
 \pagestyle{abntpaginacao}
 
-% ═══════════════════════════════════════════════════════════
-\section{Etapas concluídas}
+% ══════════════════════════════════════════════════════════════
+\section{Introdução}
+
+% ══════════════════════════════════════════════════════════════
+\section{Fundamentação Teórica}
 
 \subsection{Revisão bibliográfica}
 
@@ -335,10 +365,8 @@ Erros possíveis no protocolo:
 	      \subitem Essa é a única possibilidade que permite uma atitude maliciosa. Como os fundos do \textit{sender} estão congelados e só poderão ser utilizados novamente em caso de $M_{erro}$, esses fundos ficarão para sempre inutilizáveis. Por outro lado, supondo um \textit{receiver} honesto e um canal de troca de mensagens sólido, um $M_{erro}$ significaria que o \textit{sender} estaria agindo de má-fé, então os fundos perdidos seriam uma espécie de punição.
 \end{enumerate}
 
-
-% ═══════════════════════════════════════════════════════════
-%
-\section{Etapas em andamento}
+% ══════════════════════════════════════════════════════════════
+\section{Metodologia}
 
 \subsection{Implementação da criptomoeda}
 
@@ -383,10 +411,6 @@ Restam a implementação, então, de:
 	\item Assinaturas de carteiras \textit{offline}
 	\item Testes de integridade de transações \textit{offline}
 \end{itemize}
-% 
-% ═══════════════════════════════════════════════════════════
-
-\section{Etapas planejadas}
 
 \subsection{Exploração da carteira \textit{tamper-proof}}
 
@@ -404,8 +428,7 @@ Por fim, com a criptomoeda plenamente implementada, será comparada a abordagem 
 
 A partir do próximo mês, iniciará-se a redação da monografia.
 
-% ═══════════════════════════════════════════════════════════
-\section{Cronograma}
+\subsection{Cronograma}
 
 \begin{table}[htb]
 	\caption{\label{tab:cronograma}Cronograma de atividades}
@@ -434,6 +457,12 @@ A partir do próximo mês, iniciará-se a redação da monografia.
 		\hline
 	\end{tabular}
 \end{table}
+
+% ══════════════════════════════════════════════════════════════
+\section{Resultados}
+
+% ══════════════════════════════════════════════════════════════
+\section{Conclusão}
 
 % ── REFERÊNCIAS ──────────────────────────────────────────────
 \newpage
