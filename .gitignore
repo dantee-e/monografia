@@ -11,5 +11,8 @@
 *.bbl
 *.blg
 *.synctex(busy)
+*-SAVE-ERROR
+_minted/
+_*.minted
 parcial.*
 /Eduardo Alvaro Monteiro.pdf

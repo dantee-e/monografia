@@ -38,6 +38,11 @@
 \usepackage{setspace}
 \usepackage{array}
 
+% ── Código-fonte com syntax highlighting (via Pygments) ──────
+% Requer compilar com -shell-escape (habilitado no .latexmkrc)
+\usepackage{minted}
+\setminted{fontsize=\small, frame=lines, framesep=2mm, breaklines, tabsize=4}
+
 % ── Sumário: formatação uniforme para seções e referências ───
 \usepackage{titletoc}
 \titlecontents{section}[0pt]{\normalfont}
@@ -422,12 +427,14 @@ O sistema online segue um design convencional, baseando-se amplamente, apesar de
 
 \subsubsubsection{A blockchain}
 
+\begin{minted}{rust}
 pub struct Chain {
 		pub blocks: Vec<block::Block>,
 		pub utxos: UtxoSet,
 		pub difficulty: u8,
 		pub offline: OfflineState,
 	}
+\end{minted}
 
 A blockchain consiste em um vetor de blocos, um UtxoSet, uma dificuldade de mineracao, e um estado offline (OfflineState).
 
@@ -437,6 +444,7 @@ O estado offline eh o estado de todos os fundos e carteiras que estao envolvidos
 
 \subsubsubsection{Os blocos}
 
+\begin{minted}{rust}
 pub struct Block {
 version: u8,
 previous_hash: String,
@@ -449,13 +457,15 @@ nonce: u64,
 miner_key: Vec<u8>,
 offline: OfflineBlockData,
 }
+\end{minted}
 
 Os blocos sao definidos por sua versao, a fim de solucionar possiveis conflitos por disparidade de versoes da criptomoeda em um eventual uso pratico, um hash do bloco anterior, de um vetor de transacoes, uma altura (posicao na cadeia, tendo o primeiro bloco genesis uma altura de 0 e o n-esimo bloco uma altura de n-1), um timestamp, uma merkle root e um hash calculado com base nela, um nonce, a chave publica do mineiro que criou o bloco, e dados sobre quaisquer informações relevantes ao sistema offline que podem ter aparecido em suas transacoes.
 
-Blocos são minerados utilizando um sistema de PoW e verificados por meio da funcao Chain::validate_block.
+Blocos são minerados utilizando um sistema de PoW e verificados por meio da funcao Chain::validate\_block.
 
 \subsubsubsection{Transacoes}
 
+\begin{minted}{rust}
 pub struct Transaction {
 		pub version: u8,
 		pub inputs: Vec<TransactionInput>,
@@ -465,12 +475,14 @@ pub struct Transaction {
 		pub offline: bool,
 		pub date: DateTime<Utc>,
 	}
+\end{minted}
 
-Transacoes tem também um campo de versao, um campo de inputs e outro de outputs, um campo de coinbase_height que eh utilizado apenas em operacoes de criacao de moeda, como nas transacoes do bloco genesis ou transações de criacao de moeda de mineiros. A flag deposit eh utilizada para informar aa rede se a transacao eh para uma carteira offline, e com essa informacao a rede congela esses fundos e os autoriza para uso offline. A flag offline indica se essa transacao ocorreu em um contexto offline, e por fim o campo date informa quando a transacao ocorreu.
+Transacoes tem também um campo de versao, um campo de inputs e outro de outputs, um campo de coinbase\_height que eh utilizado apenas em operacoes de criacao de moeda, como nas transacoes do bloco genesis ou transações de criacao de moeda de mineiros. A flag deposit eh utilizada para informar aa rede se a transacao eh para uma carteira offline, e com essa informacao a rede congela esses fundos e os autoriza para uso offline. A flag offline indica se essa transacao ocorreu em um contexto offline, e por fim o campo date informa quando a transacao ocorreu.
 
 
 \subsubsubsection{Os nodes}
 
+\begin{minted}{rust}
 pub struct NodeState {
 		pub status: bool,
 		chain: Chain,
@@ -496,18 +508,20 @@ pub struct Node {
 
 /// Key pair of the node. It identifies the node to the others, receives the coinbase of the
 /// blocks it mines, signs its DTSS messages and receives the encrypted DTSS shares.
+\end{minted}
 
 Os nodes tem os campos state, que contem o estado geral do node,
 
 O estado do node armazena a cadeia, a pool de transacoes, os nodes conectados, a identidade, que contem sua chave publica para identifica-lo para outros nodes e assinar os blocos que ele porventura minerar, o endereco de sua socket para prover aos outros nodes (em um contexto real, essa socket seria um endereco HTTP), seu estado dtss e outras pendencias do estado offline.
 
 % TODO citar serde_json 
-As cadeia é armazenada por completo em cada node, que a usa a fins de validação de novas transações e blocos submetidos no futuro. Gossip é trocada entre nodes por meio de mensagens em JSON (serializadas utilizando a crate serde_json), e os nodes em si encontram uns aos outros por meio de um \textit{discovery server}, ou servidor de descobertas, que indica para os nodes os enderecos dos outros. Forks nas cadeias sao resolvidos por meio da regra de cadeia mais longa.
+As cadeia é armazenada por completo em cada node, que a usa a fins de validação de novas transações e blocos submetidos no futuro. Gossip é trocada entre nodes por meio de mensagens em JSON (serializadas utilizando a crate serde\_json), e os nodes em si encontram uns aos outros por meio de um \textit{discovery server}, ou servidor de descobertas, que indica para os nodes os enderecos dos outros. Forks nas cadeias sao resolvidos por meio da regra de cadeia mais longa.
 
 \subsubsubsection{UTXOs}
 
 Os UTXOs sao "divididos" em tres tipos:
 
+\begin{minted}{rust}
 pub struct TransactionInput {
 		pub prev: OutPoint,
 		pub signature: Option<Vec<u8>>,
@@ -522,6 +536,7 @@ pub struct UTXO {
 		pub outpoint: OutPoint,
 		pub output: TransactionOutput,
 	}
+\end{minted}
 
 Os TransactionInputs sao utilizados, como o nome sugere, como inputs para as transações. Eles referenciam o OutPoint do UTXO que sera consumido para a realizacao da transacao, assim como a assinatura do dono desse UTXO, que esta como Option por uma questao de circularidade: eh necessario o TransactionInput para a assinatura da transacao, pois a assinatura eh feita sobre a transacao inteira (com a excecao das proprias assinaturas dos inputs), mas o TransactionInput, a fim de consolidacao e de checagem posterior da validade da transacao, precisa ser armazenado com sua assinatura.
 
