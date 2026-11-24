@@ -578,18 +578,18 @@ O sistema online segue um \textit{design} convencional, baseando-se amplamente, 
 
 \subsubsubsection{Validação de blocos}
 
-Um bloco (referido nessa secao como b) é aceito pelo node se, em ordem:
+Um bloco (referido nessa seção como \texttt{b}) é aceito pelo node se, em ordem:
 
 \begin{itemize}
-	\item b.previous_hash == chain.last_block().\textit{hash}.
-	\item b.height == chain.last_block().height + 1.
-	\item b.\textit{hash} confere com o \textit{hash} calculado a partir de b_header.
-	\item b.\textit{hash} cumpre os requisitos de dificuldade.
-	\item b.merkle_root confere com a arvore recalculada das transações do bloco.
-	\item b.transactions[0] é uma coibase e nenhuma outra transação o é.
+	\item \texttt{b.previous\_hash} é igual a \texttt{chain.last\_block().hash}.
+	\item \texttt{b.height} é igual a \texttt{chain.last\_block().height + 1}.
+	\item \texttt{b.hash} confere com o \textit{hash} calculado a partir de \texttt{b\_header}.
+	\item \texttt{b.hash} cumpre os requisitos de dificuldade.
+	\item \texttt{b.merkle\_root} confere com a árvore recalculada das transações do bloco.
+	\item \texttt{b.transactions[0]} é uma \textit{coinbase} e nenhuma outra transação o é.
 	\item Cada transação, na ordem em que for apresentada, confere com o \textit{set} de UTXOs E com as regras de transações offline.
-	\item O total da transação \textit{coinbase} <= BLOCK_REWARD + \sum{fees}.
-	\item b.offline_data é validado e confere com o que esta registrado na rede.
+	\item O total da transação \textit{coinbase} é menor ou igual a \texttt{BLOCK\_REWARD} mais as taxas (\texttt{fees}).
+	\item \texttt{b.offline\_data} é validado e confere com o que está registrado na rede.
 \end{itemize}
 
 
