@@ -183,7 +183,7 @@
 
 % ── RESUMO ───────────────────────────────────────────────────
 \begin{resumo}
-	Criptomoedas são meios de troca que utilizam de um sistema de blockchain para assegurar a validade das transações. Elas têm fundamentalmente uma forte dependência de sua conexão ao resto da rede, o que significa que em contextos offline não é possível realizar transações, uma grande limitação em áreas rurais ou com uma conexão ruim. Alguns protocolos criptográficos, porém, somados ao desenvolvimento e ampliamento ao suporte de TEEs, possibilitam abordagens que estendem a área de atuação de criptomoedas à contextos offline. O presente trabalho detalha uma nova dessas abordagens. A metodologia proposta explora uma abordagem que faz uso das TEEs aliadas a um protocolo DTSS com uma chave de assinatura espalhada pela rede enttre nós significativos.
+	Criptomoedas são meios de troca que utilizam de um sistema de \textit{blockchain} para assegurar a validade das transações. Elas têm fundamentalmente uma forte dependência de sua conexão ao resto da rede, o que significa que em contextos offline não é possível realizar transações, uma grande limitação em áreas rurais ou com uma conexão ruim. Alguns protocolos criptográficos, porém, somados ao desenvolvimento e ampliamento ao suporte de TEEs, possibilitam abordagens que estendem a área de atuação de criptomoedas à contextos offline. O presente trabalho detalha uma nova dessas abordagens. A metodologia proposta explora uma abordagem que faz uso das TEEs aliadas a um protocolo DTSS com uma chave de assinatura espalhada pela rede enttre nós significativos.
 \end{resumo}
 
 % ── ABSTRACT ─────────────────────────────────────────────────
@@ -232,15 +232,15 @@
 % ══════════════════════════════════════════════════════════════
 \section{Introdução}
 
-Com a ampla adoção da tecnologia de blockchain que se observa hoje, cresce o interesse em novos modos de utilizá-la. Seja por meio das NFTs (\textit{Non-Fungible Tokens}), concebidas para combater o problema da monetização do trabalho de artistas digitais \cite{nfts}, ou pelo desenvolvimento de novas moedas digitais FIAT ($CBDC$s), como as discutidas pelo European Data Protection Supervisor \cite{edps}, e o projeto do DREX iniciado pelo Banco Central do Brasil, apesar de ter sido subsequentemente abandonado \cite{drexabandonado}. As aplicações da blockchain tornam-se, portanto, cada vez mais ubíquas.
+Com a ampla adoção da tecnologia de \textit{blockchain} que se observa hoje, cresce o interesse em novos modos de utilizá-la. Seja por meio das NFTs (\textit{Non-Fungible Tokens}), concebidas para combater o problema da monetização do trabalho de artistas digitais \cite{nfts}, ou pelo desenvolvimento de novas moedas digitais FIAT ($CBDC$s), como as discutidas pelo European Data Protection Supervisor \cite{edps}, e o projeto do DREX iniciado pelo Banco Central do Brasil, apesar de ter sido subsequentemente abandonado \cite{drexabandonado}. As aplicações da \textit{blockchain} tornam-se, portanto, cada vez mais ubíquas.
 
-A tecnologia blockchain é fundamentalmente dependente de uma conexão com a internet ou de alguma outra forma de alcançar os nós de mineração, os quais são responsáveis pela validação das transações e pelo seu registro em blocos na cadeia. Quando blocos são registrados e propagados, eventuais discordâncias entre nós distintos são resolvidas pelo protocolo de consenso da cadeia mais longa. Sem a conectividade necessária, abrem-se brechas para vulnerabilidades de \textit{double spending}, prática na qual um agente malicioso tenta utilizar o mesmo $UTXO$ (\textit{Unspent Transaction Output}) em duas transações diferentes, comprometendo a confiabilidade da rede, o que tipicamente seria identificado e solucionado no tempo de registrar a transação \cite{nakamoto2008}.
+A tecnologia \textit{blockchain} é fundamentalmente dependente de uma conexão com a internet ou de alguma outra forma de alcançar os nós de mineração, os quais são responsáveis pela validação das transações e pelo seu registro em blocos na cadeia. Quando blocos são registrados e propagados, eventuais discordâncias entre nós distintos são resolvidas pelo protocolo de consenso da cadeia mais longa. Sem a conectividade necessária, abrem-se brechas para vulnerabilidades de \textit{double spending}, prática na qual um agente malicioso tenta utilizar o mesmo $UTXO$ (\textit{Unspent Transaction Output}) em duas transações diferentes, comprometendo a confiabilidade da rede, o que tipicamente seria identificado e solucionado no tempo de registrar a transação \cite{nakamoto2008}.
 
 Há, contudo, demanda crescente por transações em contextos \textit{offline}. Em áreas remotas com difícil acesso à internet, ou em ambientes como aeronaves, as quais frequentemente não dispõem de conexão adequada, a realização de trocas utilizando criptomoedas pode ser impraticável. Essa limitação representa uma barreira relevante à propagação dessas tecnologias enquanto o problema não for devidamente abordado.
 
-Um dos problemas fundamentais da tecnologia blockchain é a impossibilidade de realizar transações quando em contexto \textit{offline}, ou seja, desconectado de uma rede de internet. Isso implica que, em áreas remotas ou em ambientes sem conectividade, pode ser inviável realizar trocas utilizando criptomoedas. Nesse cenário, a ausência de validação pelos nós da rede abre espaço para ataques de \textit{double spending}, comprometendo a integridade das transações e a confiança no sistema.
+Um dos problemas fundamentais da tecnologia \textit{blockchain} é a impossibilidade de realizar transações quando em contexto \textit{offline}, ou seja, desconectado de uma rede de internet. Isso implica que, em áreas remotas ou em ambientes sem conectividade, pode ser inviável realizar trocas utilizando criptomoedas. Nesse cenário, a ausência de validação pelos nós da rede abre espaço para ataques de \textit{double spending}, comprometendo a integridade das transações e a confiança no sistema.
 
-Considerável progresso foi realizado no campo das transações \textit{offline} com tecnologia blockchain, baseando-se em grande parte no conceito de carteiras denominadas \textit{tamper-proof}, ou seja, à prova de adulteração \cite{dmitrienko2017}. Essas carteiras empregam diversas tecnologias de hardware para prevenir que agentes maliciosos modifiquem as informações armazenadas em sua memória sem inutilizar o dispositivo \cite{jie2024}. Assumindo, portanto, que é possível confiar na integridade da carteira, os participantes de uma transação têm a garantia de que não estão interagindo com dispositivos adulterados que tentem realizar \textit{double spending}. Essa premissa viabiliza a concepção de protocolos de pagamento \textit{offline} que sejam, ao mesmo tempo, seguros e práticos para o uso cotidiano.
+Considerável progresso foi realizado no campo das transações \textit{offline} com tecnologia \textit{blockchain}, baseando-se em grande parte no conceito de carteiras denominadas \textit{tamper-proof}, ou seja, à prova de adulteração \cite{dmitrienko2017}. Essas carteiras empregam diversas tecnologias de hardware para prevenir que agentes maliciosos modifiquem as informações armazenadas em sua memória sem inutilizar o dispositivo \cite{jie2024}. Assumindo, portanto, que é possível confiar na integridade da carteira, os participantes de uma transação têm a garantia de que não estão interagindo com dispositivos adulterados que tentem realizar \textit{double spending}. Essa premissa viabiliza a concepção de protocolos de pagamento \textit{offline} que sejam, ao mesmo tempo, seguros e práticos para o uso cotidiano.
 
 Além dos benefícios diretos à inclusão financeira digital, o desenvolvimento de uma implementação funcional pode contribuir para ampliar o debate acadêmico sobre os limites e potencialidades das criptomoedas em ambientes com conectividade restrita, bem como servir de base para trabalhos futuros na área.
 
@@ -257,15 +257,15 @@ As abordagens citadas aqui são discutidas com mais detalhes na subseção segui
 
 \subsubsection{Dmitrienko et al.}
 
-O artigo foi a primeira solução proposta de pagamentos \textit{offline} em criptomoedas. Os principais pontos abordados incluem o uso de hardware seguro (paralelo às carteiras \textit{tamper-proof} usadas nesse trabalho), a verificação adiada de parâmetros e o emprego de mecanismos probabilísticos de checagem de \textit{timestamps} para, juntamente a um limite de valor de transação, inviabilizar práticas de \textit{double spending}. Estas, somente possíveis em uma eventual quebra do sigilo do $TEE$, se tornariam economicamente inviáveis.
+O artigo foi a primeira solução proposta de pagamentos \textit{offline} em criptomoedas. Os principais pontos abordados incluem o uso de hardware seguro (paralelo às carteiras \textit{tamper-proof} usadas nesse trabalho), a verificação adiada de parâmetros e o emprego de mecanismos probabilísticos de checagem de \textit{\textit{timestamps}} para, juntamente a um limite de valor de transação, inviabilizar práticas de \textit{double spending}. Estas, somente possíveis em uma eventual quebra do sigilo do $TEE$, se tornariam economicamente inviáveis.
 
-Um dos problemas dessa abordagem é que a checagem feita por meio dos \textit{timestamps} é apenas difícil de ser burlada, não criptograficamente impossível. O presente trabalho propõe um método criptograficamente impossível de ser burlado, salvo pela quebra do sigilo do $TEE$.
+Um dos problemas dessa abordagem é que a checagem feita por meio dos \textit{\textit{timestamps}} é apenas difícil de ser burlada, não criptograficamente impossível. O presente trabalho propõe um método criptograficamente impossível de ser burlado, salvo pela quebra do sigilo do $TEE$.
 
 \subsubsection{Videira}
 
-O artigo apresenta uma abordagem para moedas $CBDC$, que presumem que uma autoridade central irá aprovar as carteiras e as moedas nas carteiras. O protocolo de aprovação é bem elaborado e inclui a definição de uma blockchain local que poderia ser reaproveitada em alguns casos.
+O artigo apresenta uma abordagem para moedas $CBDC$, que presumem que uma autoridade central irá aprovar as carteiras e as moedas nas carteiras. O protocolo de aprovação é bem elaborado e inclui a definição de uma \textit{blockchain} local que poderia ser reaproveitada em alguns casos.
 
-A desvantagem da abordagem é a exigência do apoio de um sistema legal que identifique os participantes de cada operação, pois em um dos casos (\textit{secret.nonce\#} is not valid, seção 2.3.8), se o \textit{receiver} da moeda não colaborar com a falha na operação, ele ficará indevidamente com a moeda. Um sistema legal poderia forçá-lo a reverter a operação, mas baseando-se somente na criptografia (o que é o caso quando se trabalha com uma criptomoeda descentralizada) o protocolo não é infalível.
+A desvantagem da abordagem é a exigência do apoio de um sistema legal que identifique os participantes de cada operação, pois em um dos casos (\textit{secret.\textit{nonce}\#} is not valid, seção 2.3.8), se o \textit{receiver} da moeda não colaborar com a falha na operação, ele ficará indevidamente com a moeda. Um sistema legal poderia forçá-lo a reverter a operação, mas baseando-se somente na criptografia (o que é o caso quando se trabalha com uma criptomoeda descentralizada) o protocolo não é infalível.
 
 \subsubsection{Si et al.}
 
@@ -286,7 +286,7 @@ A estrutura geral do sistema se assemelha à desenvolvida no presente trabalho, 
 
 O artigo garante defesa contra ataques de \textit{Double Spend}, \textit{Man-in-the-Middle}, \textit{Coin Forgery}, \textit{Offline Transaction Data Forgery} e \textit{Double Deposito}. Ele faz isso assumindo, entre outras coisas, que a comunicação entre usuários é perfeita e proativa, o que não pode ser garantido no caso de um atacante malicioso.
 
-Identificou-se, neste trabalho, uma lacuna no algoritmo: ele não lida com o caso em que o \textit{receiver} não compartilha a confirmação da transação, o que foi deixado como \textit{gap} no escopo do artigo.
+Identificou-se, neste trabalho, uma lacuna no algoritmo: ele não lida com o caso em que o \textit{receiver} não compartilha a confirmação da transação, o que foi deixado como \textit{\textit{gap}} no escopo do artigo.
 
 \subsection{Teoria de pagamentos \textit{offline}}
 
@@ -310,7 +310,7 @@ Esse trabalho foi construído em cima de alguns pressupostos. Estes são:
 \begin{enumerate}
 	\item As carteiras operando em contextos \textit{offline} têm uma forma segura de comunicação entre si, sem nenhum intermediário malicioso;
 	\item Apesar de estudos revelarem possibilidades de violá-los \cite{skorobogatov2012}, os $TEEs$ são invioláveis ou que violá-los seria ineficiente demais para que alguém o fizesse;
-	\item As operações na blockchain \textit{online} são confiáveis;
+	\item As operações na \textit{blockchain} \textit{online} são confiáveis;
 	\item Usuários operam em ambientes com $TEEs$;
 	\item As primitivas criptográficas são seguras;
 \end{enumerate}
@@ -324,13 +324,13 @@ Um usuário malicioso pode tentar forjar uma $\sigma_{rede}(tx_d)$ sem ter reali
 
 \paragraph{Adulteração de dados de transações \textit{offline}}
 
-O \textit{sender} ou o \textit{receiver} podem tentar adulterar os dados armazenados no $ANC$, falsificando o histórico de transações da blockchain local.
+O \textit{sender} ou o \textit{receiver} podem tentar adulterar os dados armazenados no $ANC$, falsificando o histórico de transações da \textit{blockchain} local.
 
 \paragraph{Ataques de \textit{Double Spending}}
 Um usuário malicioso pode tentar gastar os mesmos $UTXOs$ múltiplas vezes em um contexto \textit{offline}, seja com o mesmo \textit{receiver} ou com \textit{receivers} distintos.
 
 \paragraph{Ataques de repetição}
-Um atacante pode tentar reutilizar uma transação já registrada na blockchain local para enganar um \textit{receiver} distinto.
+Um atacante pode tentar reutilizar uma transação já registrada na \textit{blockchain} local para enganar um \textit{receiver} distinto.
 
 \paragraph{Ataques \textit{Sybil} à rede}
 Um atacante pode tentar criar \textit{nodes} suficientes para acumular $t$ partes da $CAR$ e forjar assinaturas de depósito.
@@ -351,7 +351,7 @@ TODO
 
 Para evitar tampering enquanto os envolvidos em uma transação estejam \textit{offline}, são utilizadas carteiras com \textit{Trusted Execution Environments} ($TEEs$), que contêm um registro das operações realizadas. Essas $TEEs$ buscam prevenir que um agente malicioso interfira no funcionamento esperado, e além disso provêem ferramentas que permitem a checagem da validade do ambiente $TEE$, de forma que não seja possível para um atacante emular um ambiente semelhante a fim de enganar o protocolo. Dentro dessas $TEEs$, há uma chave de assinatura \textit{offline} ($osk$) que pode autorizar transações (a $osk$ tem como contrapartida a chave de verificação $ovk$). Essa chave é criada por uma operação dentro da própria $TEE$, de forma que apenas a invasão física do ambiente possa revelá-la. As $TEEs$ também realizam o \textit{hashing} do próprio software. Desse modo, quaisquer adulterações no ambiente são detectadas e impedem que a transação aconteça em primeiro lugar, ou acusam a adulteração quando o agente malicioso se conecta novamente à rede para tentar descongelar suas moedas, salvaguardando-as para quando os possíveis recipientes se conectarem e reivindicarem seus $UTXOs$. Isso implica que mesmo se, por algum propósito não malicioso, algo acontecer ao hardware ou ao software, os fundos serão perdidos, mas no universo das criptomoedas esse risco é familiar aos usuários, uma vez que a perda de um dispositivo com determinados tipos de carteira pode ter a mesma implicação.
 
-A carteira é composta pelo $TEE$, que contém um \textit{counter} $\theta$ de operações realizadas, pelo par de chaves da carteira $(osk, ovk)$, por uma cópia da $CVR$, para uso nas verificações de moedas alheias, e por um ambiente não controlado e não confiável, denominado $ANC$. Este armazena uma blockchain local, que registra todas as operações realizadas \textit{offline} assim como todas as operações de depósito. Essa blockchain local também conta com um campo especial, uma assinatura $\sigma(bloco)$, que valida se os blocos estão de acordo com as operações que a $TEE$ realizou.
+A carteira é composta pelo $TEE$, que contém um \textit{counter} $\theta$ de operações realizadas, pelo par de chaves da carteira $(osk, ovk)$, por uma cópia da $CVR$, para uso nas verificações de moedas alheias, e por um ambiente não controlado e não confiável, denominado $ANC$. Este armazena uma \textit{blockchain} local, que registra todas as operações realizadas \textit{offline} assim como todas as operações de depósito. Essa \textit{blockchain} local também conta com um campo especial, uma assinatura $\sigma(bloco)$, que valida se os blocos estão de acordo com as operações que a $TEE$ realizou.
 
 \subsubsection{A autorização de moedas \textit{offline}}
 Para que uma carteira possa realizar transações \textit{offline}, é necessário que ela antes realize uma operação de depósito na rede, que irá congelar os $UTXOs$ para uso \textit{offline} e assiná-los para que mais tarde eles sejam checados na verificação da transação \textit{offline}. O depósito ocorre da seguinte forma:
@@ -359,32 +359,32 @@ Para que uma carteira possa realizar transações \textit{offline}, é necessár
 \begin{enumerate}
 	\item O usuário submete à rede uma solicitação de depósito a uma carteira \textit{offline} $tx_d$. Essa solicitação de depósito nada mais é do que uma transação com seu campo $tx.deposit$ marcado como \texttt{true}, e o destinatário sendo a $ovk$ de sua carteira \textit{offline}.
 	\item A rede verifica a transação como qualquer outra, e uma vez que seja válida, marca os $UTXOs$ como congelados. Se uma nova transação for feita com eles enquanto a carteira \textit{offline} não houver se conectado à rede para fazer a ressincronização, a transação será imediatamente rejeitada. A ressincronização é explicada na Subseção~\ref{subsec:ressincronizacao}.
-	\item A rede esperará a consolidação de um número $B$ de blocos para minimizar a chance de problemas por conta de \textit{forks} de cadeias, e depois disso criará uma transação de valor nulo para a $ovk$ da carteira \textit{offline} que recebeu os fundos partindo da $CVR$ da rede, contendo $\sigma_{rede}(tx_d)$.
-	\item A carteira \textit{offline} faz o download dessa assinatura e a armazena junto da transação em sua blockchain local.
+	\item A rede esperará a consolidação de um número $B$ de blocos para minimizar a chance de problemas por conta de \textit{\textit{forks}} de cadeias, e depois disso criará uma transação de valor nulo para a $ovk$ da carteira \textit{offline} que recebeu os fundos partindo da $CVR$ da rede, contendo $\sigma_{rede}(tx_d)$.
+	\item A carteira \textit{offline} faz o download dessa assinatura e a armazena junto da transação em sua \textit{blockchain} local.
 \end{enumerate}
 
 \subsubsection{O protocolo para transações \textit{offline}}
 
 \begin{enumerate}
 	\item O \textit{receiver} envia um \textit{nonce} $\delta$ para o \textit{sender}.
-	\item O \textit{sender} envia uma transação assinada equivalente a uma transação realizada em um contexto \textit{online}. Além disso, ele envia a assinatura $\sigma_{tx}$ que ele recebe da rede que autenticou seus fundos, uma cópia de sua blockchain, o contador de transações da $TEE$, assim como uma assinatura $\sigma_{osk_{sender}}(\theta_{sender}, \delta) = \sigma_{sender} (\theta_{sender}, \delta)$ sobre o contador e o \textit{nonce}.
+	\item O \textit{sender} envia uma transação assinada equivalente a uma transação realizada em um contexto \textit{online}. Além disso, ele envia a assinatura $\sigma_{tx}$ que ele recebe da rede que autenticou seus fundos, uma cópia de sua \textit{blockchain}, o contador de transações da $TEE$, assim como uma assinatura $\sigma_{osk_{sender}}(\theta_{sender}, \delta) = \sigma_{sender} (\theta_{sender}, \delta)$ sobre o contador e o \textit{nonce}.
 	\item A partir desse momento, os fundos utilizados para a operação serão registrados pela $TEE$ como congelados até que o \textit{sender} receba $M_{sucesso}$ ou $M_{erro}$.
-	\item O \textit{receiver} irá checar os blocos da blockchain, conferindo se as informações são válidas e se as moedas sendo utilizadas foram em algum momento assinadas pela $CAR$. Ele também deve checar se o número de blocos é fiel ao número $\theta$ recebido. A verificação pode resultar em um sucesso ou em um fracasso.
+	\item O \textit{receiver} irá checar os blocos da \textit{blockchain}, conferindo se as informações são válidas e se as moedas sendo utilizadas foram em algum momento assinadas pela $CAR$. Ele também deve checar se o número de blocos é fiel ao número $\theta$ recebido. A verificação pode resultar em um sucesso ou em um fracasso.
 	      \begin{enumerate}
-		      \item Em caso de sucesso, o \textit{receiver} irá registrar a transação na própria blockchain local, assinando-a com sua $osk$ e incrementando o $\theta_{receiver}$ em 1. Ele também irá enviar $M_{sucesso}$ e $\sigma_{receiver}(M_{sucesso})$ para o \textit{sender}.
-		      \item Em caso de fracasso, o \textit{receiver} irá registrar em sua blockchain um novo bloco que registra a transação como falha, aumentando o contador de qualquer forma. Ele também irá enviar $M_{erro}$ e $\sigma_{receiver}(M_{erro})$ para o \textit{sender}.
+		      \item Em caso de sucesso, o \textit{receiver} irá registrar a transação na própria \textit{blockchain} local, assinando-a com sua $osk$ e incrementando o $\theta_{receiver}$ em 1. Ele também irá enviar $M_{sucesso}$ e $\sigma_{receiver}(M_{sucesso})$ para o \textit{sender}.
+		      \item Em caso de fracasso, o \textit{receiver} irá registrar em sua \textit{blockchain} um novo bloco que registra a transação como falha, aumentando o contador de qualquer forma. Ele também irá enviar $M_{erro}$ e $\sigma_{receiver}(M_{erro})$ para o \textit{sender}.
 	      \end{enumerate}
 \end{enumerate}
 
 \subsubsection{A ressincronização}
 \label{subsec:ressincronizacao}
 
-Quando a carteira \textit{offline} se conecta à rede, ela deve prestar contas e submeter sua blockchain local para ressincronização. O processo ocorre da seguinte forma:
+Quando a carteira \textit{offline} se conecta à rede, ela deve prestar contas e submeter sua \textit{blockchain} local para ressincronização. O processo ocorre da seguinte forma:
 
 \begin{enumerate}
-	\item A carteira envia sua blockchain local completa à rede.
+	\item A carteira envia sua \textit{blockchain} local completa à rede.
 	\item A rede confere a integridade da cadeia, conferindo as assinaturas $\sigma_{carteira}(bloco)$ criadas pela $TEE$ em cada bloco, garantindo que não houve quaisquer adulterações advindas do $ANC$.
-	\item Para cada transação na blockchain local:
+	\item Para cada transação na \textit{blockchain} local:
 	      \begin{enumerate}
 		      \item Se o \textit{receiver} ainda não houver submetido à rede, ela é oficializada agora.
 		      \item Se o \textit{receiver} já houver submetido, a rede confere a consistência entre as versões.
@@ -404,7 +404,7 @@ Erros possíveis no protocolo:
 	      \subitem Os fundos utilizados na transação estão congelados pela $TEE$ até que uma das mensagens seja recebida. Não há qualquer benefício nessa linha de ação para o \textit{sender}.
 
 	\item \textit{Receiver} recebe $M_{sucesso}$ e não a envia ao \textit{sender}:
-	      \subitem Isso seria inconveniente ao \textit{sender}, pois a transação ficaria em aberto, mas não acarretaria em nada além dessa inconveniência. O dinheiro já pertence ao \textit{receiver}, e os fundos estão congelados para o \textit{sender}. Da próxima vez que o \textit{sender} se conectar à internet após o \textit{receiver} ter atualizado a blockchain com suas informações, o mistério da transação em aberto será elucidado.
+	      \subitem Isso seria inconveniente ao \textit{sender}, pois a transação ficaria em aberto, mas não acarretaria em nada além dessa inconveniência. O dinheiro já pertence ao \textit{receiver}, e os fundos estão congelados para o \textit{sender}. Da próxima vez que o \textit{sender} se conectar à internet após o \textit{receiver} ter atualizado a \textit{blockchain} com suas informações, o mistério da transação em aberto será elucidado.
 
 	\item \textit{Receiver} recebe $M_{erro}$ e não a envia ao \textit{sender}:
 	      \subitem Essa é a única possibilidade que permite uma atitude maliciosa. Como os fundos do \textit{sender} estão congelados e só poderão ser utilizados novamente em caso de $M_{erro}$, esses fundos ficarão para sempre inutilizáveis. Por outro lado, supondo um \textit{receiver} honesto e um canal de troca de mensagens sólido, um $M_{erro}$ significaria que o \textit{sender} estaria agindo de má-fé, então os fundos perdidos seriam uma espécie de punição.
@@ -419,132 +419,185 @@ A não ser confundida com a seção de teoria, essa seção do texto explica em 
 
 A implementação da criptomoeda foi realizado ao longo de dezenove meses, sendo estes separados entre dois períodos: no primeiro, definido entre março de 2025 e março de 2026, o projeto era apenas pessoal e não contava com as ideias de pagamentos offline. O segundo período, entre março e outubro de 2026, foi caracterizado por um maior volume de contribuições e pela presença orientadora dos princípios de pagamentos offline na estrutura do código.
 
-\subsubsection{O sistema \textit{online}}
+\subsubsection{Building blocks}
 
-O sistema online segue um design convencional, baseando-se amplamente, apesar de não estritamente, na implementação do Bitcoin. Diversas características presentes no Bitcoin, como um protocolo customizado de comunicação entre os nodes, foram dispensadas em nome de tornar o protótipo funcional no tempo disposto para a realização do trabalho.
+
+Serao primeiramente apresentadas as principais estruturas que compoe o código, e mais tarde sera elaborado como elas interagem entre si para possibilitar o funcionamento da criptomoeda.
 
 % TODO citar serde 
 
-\subsubsubsection{A blockchain}
+\subsubsubsection{A \textit{blockchain}}
 
 \begin{minted}{rust}
 pub struct Chain {
-		pub blocks: Vec<block::Block>,
-		pub utxos: UtxoSet,
-		pub difficulty: u8,
-		pub offline: OfflineState,
-	}
+  pub blocks: Vec<block::Block>,
+  pub utxos: UtxoSet,
+  pub difficulty: u8,
+  pub offline: OfflineState,
+}
 \end{minted}
 
-A blockchain consiste em um vetor de blocos, um UtxoSet, uma dificuldade de mineracao, e um estado offline (OfflineState).
+A \textit{blockchain} consiste em um vetor de blocos, um UtxoSet, uma dificuldade de mineração, e um estado offline (OfflineState).
 
-O UtxoSet eh um HashMap de OutPoints (que consistem em o TXID da transação na qual o UTXO foi criado, e o index de output desse UTXO nessa transação) que apontam para UTXOs. Ele eh calculado a partir da propria blockchain conforme os blocos vao sendo adicionados.
+O UtxoSet é um HashMap de OutPoints (que consistem em o TXID da transação na qual o UTXO foi criado, e o index de output desse UTXO nessa transação) que apontam para UTXOs. Ele é calculado a partir da propria \textit{blockchain} conforme os blocos vão sendo adicionados.
 
-O estado offline eh o estado de todos os fundos e carteiras que estao envolvidos no aspecto offline da moeda, como por exemplo uma lista de OutPoints de todos os UTXOs que estao atualmente congelados. Esse estado eh utilizado a fim de checar se alguma operacao esta sendo realizada na rede que deveria ser impedida por comprometer a seguranca dos protocolos de transações offline.
+O estado offline é o estado de todos os fundos e carteiras que estao envolvidos no aspecto offline da moeda, como por exemplo uma lista de OutPoints de todos os UTXOs que estao atualmente congelados. Esse estado é utilizado a fim de checar se alguma operação esta sendo realizada na rede que deveria ser impedida por comprometer a segurança dos protocolos de transações offline.
 
 \subsubsubsection{Os blocos}
 
 \begin{minted}{rust}
 pub struct Block {
-version: u8,
-previous_hash: String,
-pub(crate) transactions: Vec<Transaction>,
-height: u64,
-timestamp: DateTime<Utc>,
-hash: String,
-merkle_root: [u8; 32],
-nonce: u64,
-miner_key: Vec<u8>,
-offline: OfflineBlockData,
+  version: u8,
+  previous_hash: String,
+  pub(crate) transactions: Vec<Transaction>,
+  height: u64,
+  timestamp: DateTime<Utc>,
+  hash: String,
+  merkle_root: [u8; 32],
+  nonce: u64,
+  miner_key: Vec<u8>,
+  offline: OfflineBlockData,
 }
+
+pub struct BlockHeader {
+    version: u8,
+    previous_hash: String,
+    height: u64,
+    timestamp: DateTime<Utc>,
+    merkle_root: [u8; 32],
+    nonce: u64,
+    miner_key: Vec<u8>,
+}
+
 \end{minted}
 
-Os blocos sao definidos por sua versao, a fim de solucionar possiveis conflitos por disparidade de versoes da criptomoeda em um eventual uso pratico, um hash do bloco anterior, de um vetor de transacoes, uma altura (posicao na cadeia, tendo o primeiro bloco genesis uma altura de 0 e o n-esimo bloco uma altura de n-1), um timestamp, uma merkle root e um hash calculado com base nela, um nonce, a chave publica do mineiro que criou o bloco, e dados sobre quaisquer informações relevantes ao sistema offline que podem ter aparecido em suas transacoes.
+Os blocos são definidos por sua versão, a fim de solucionar possíveis conflitos por disparidade de versões da criptomoeda em um eventual uso pratico, um \textit{hash} do bloco anterior, de um vetor de transações, uma altura (posicao na cadeia, tendo o primeiro bloco genesis uma altura de 0 e o n-esimo bloco uma altura de n-1), um \textit{timestamp}, uma merkle root e um \textit{hash} calculado com base nela, um \textit{nonce}, a chave pública do mineiro que criou o bloco, e dados sobre quaisquer informações relevantes ao sistema offline que podem ter aparecido em suas transações.
 
 Blocos são minerados utilizando um sistema de PoW e verificados por meio da funcao Chain::validate\_block.
 
-\subsubsubsection{Transacoes}
+Os BlockHeaders são structs mais leves, extraidas do bloco completo, utilizadas a fim de verificação e troca de mensagens entre nodes.
+
+\subsubsubsection{Transações}
 
 \begin{minted}{rust}
 pub struct Transaction {
-		pub version: u8,
-		pub inputs: Vec<TransactionInput>,
-		pub outputs: Vec<TransactionOutput>,
-		pub coinbase_height: Option<u64>,
-		pub deposit: bool,
-		pub offline: bool,
-		pub date: DateTime<Utc>,
-	}
+  pub version: u8,
+  pub inputs: Vec<TransactionInput>,
+  pub outputs: Vec<TransactionOutput>,
+  pub coinbase_height: Option<u64>,
+  pub deposit: bool,
+  pub offline: bool,
+  pub date: DateTime<Utc>,
+}
 \end{minted}
 
-Transacoes tem também um campo de versao, um campo de inputs e outro de outputs, um campo de coinbase\_height que eh utilizado apenas em operacoes de criacao de moeda, como nas transacoes do bloco genesis ou transações de criacao de moeda de mineiros. A flag deposit eh utilizada para informar aa rede se a transacao eh para uma carteira offline, e com essa informacao a rede congela esses fundos e os autoriza para uso offline. A flag offline indica se essa transacao ocorreu em um contexto offline, e por fim o campo date informa quando a transacao ocorreu.
+Transações têm também um campo de versão, um campo de inputs e outro de outputs, um campo de \textit{coinbase}\_height que é utilizado apenas em operações de criação de moeda, como nas transações do bloco genesis ou transações de criação de moeda de mineiros. A flag deposit é utilizada para informar à rede se a transação é para uma carteira offline, e com essa informação a rede congela esses fundos e os autoriza para uso offline. A flag offline indica se essa transação ocorreu em um contexto offline, e por fim o campo date informa quando a transação ocorreu.
 
 
 \subsubsubsection{Os nodes}
 
 \begin{minted}{rust}
 pub struct NodeState {
-		pub status: bool,
-		chain: Chain,
-		transactions_pool: Vec<Transaction>,
-		connected_nodes: HashSet<ConnectedNodeInfo>,
-		identity: NodeIdentity,
-		address: Option<SocketAddr>,
-		pub(crate) dtss: dtss::DtssState,
-		pub(crate) pending_offline: crate::offline::resync::OfflineBlockData,
-	}
+  pub status: bool,
+  chain: Chain,
+  transactions_pool: Vec<Transaction>,
+  connected_nodes: HashSet<ConnectedNodeInfo>,
+  identity: NodeIdentity,
+  address: Option<SocketAddr>,
+  pub(crate) dtss: dtss::DtssState,
+  pub(crate) pending_offline: crate::offline::resync::OfflineBlockData,
+}
 
 struct NodeConfig {
-		log_path: PathBuf,
-	}
+  log_path: PathBuf,
+}
 
 pub struct Node {
-		pub state: Arc<Mutex<NodeState>>,
-		logger: Arc<logger::Logger>,
-		config: NodeConfig,
-		pub name: String,
-		pub socket_location: PathBuf,
-	}
+  pub state: Arc<Mutex<NodeState>>,
+  logger: Arc<logger::Logger>,
+  config: NodeConfig,
+  pub name: String,
+  pub socket_location: PathBuf,
+}
 
 /// Key pair of the node. It identifies the node to the others, receives the coinbase of the
 /// blocks it mines, signs its DTSS messages and receives the encrypted DTSS shares.
 \end{minted}
 
-Os nodes tem os campos state, que contem o estado geral do node,
+Os nodes têm os campos state, que contém o estado geral do node,
 
-O estado do node armazena a cadeia, a pool de transacoes, os nodes conectados, a identidade, que contem sua chave publica para identifica-lo para outros nodes e assinar os blocos que ele porventura minerar, o endereco de sua socket para prover aos outros nodes (em um contexto real, essa socket seria um endereco HTTP), seu estado dtss e outras pendencias do estado offline.
+O estado do node armazena a cadeia, a \textit{pool} de transações, os nodes conectados, a identidade, que contém sua chave pública para identifica-lo para outros nodes e assinar os blocos que ele porventura minerar, o endereço de sua socket para prover aos outros nodes (em um contexto real, essa socket seria um endereço HTTP), seu estado dtss e outras pendencias do estado offline.
 
 % TODO citar serde_json 
-As cadeia é armazenada por completo em cada node, que a usa a fins de validação de novas transações e blocos submetidos no futuro. Gossip é trocada entre nodes por meio de mensagens em JSON (serializadas utilizando a crate serde\_json), e os nodes em si encontram uns aos outros por meio de um \textit{discovery server}, ou servidor de descobertas, que indica para os nodes os enderecos dos outros. Forks nas cadeias sao resolvidos por meio da regra de cadeia mais longa.
+As cadeia é armazenada por completo em cada node, que a usa a fins de validação de novas transações e blocos submetidos no futuro. Gossip é trocada entre nodes por meio de mensagens em JSON (serializadas utilizando a crate serde\_json), e os nodes em si encontram uns aos outros por meio de um \textit{discovery server}, ou servidor de descobertas, que indica para os nodes os endereços dos outros. Forks nas cadeias são resolvidos por meio da regra de cadeia mais longa.
 
 \subsubsubsection{UTXOs}
 
-Os UTXOs sao "divididos" em tres tipos:
+Os UTXOs são "divididos" em tres tipos:
 
 \begin{minted}{rust}
 pub struct TransactionInput {
-		pub prev: OutPoint,
-		pub signature: Option<Vec<u8>>,
-	}
+  pub prev: OutPoint,
+  pub signature: Option<Vec<u8>>,
+}
 
 pub struct TransactionOutput {
-		pub value: u64,
-		pub owner: PublicKey,
-	}
+  pub value: u64,
+  pub owner: PublicKey,
+}
 
 pub struct UTXO {
-		pub outpoint: OutPoint,
-		pub output: TransactionOutput,
-	}
+  pub outpoint: OutPoint,
+  pub output: TransactionOutput,
+}
 \end{minted}
 
-Os TransactionInputs sao utilizados, como o nome sugere, como inputs para as transações. Eles referenciam o OutPoint do UTXO que sera consumido para a realizacao da transacao, assim como a assinatura do dono desse UTXO, que esta como Option por uma questao de circularidade: eh necessario o TransactionInput para a assinatura da transacao, pois a assinatura eh feita sobre a transacao inteira (com a excecao das proprias assinaturas dos inputs), mas o TransactionInput, a fim de consolidacao e de checagem posterior da validade da transacao, precisa ser armazenado com sua assinatura.
+Os TransactionInputs são utilizados, como o nome sugere, como inputs para as transações. Eles referenciam o OutPoint do UTXO que sera consumido para a realizacao da transação, assim como a assinatura do dono desse UTXO, que esta como Option por uma questão de circularidade: é necessario o TransactionInput para a assinatura da transação, pois a assinatura é feita sobre a transação inteira (com a excecao das proprias assinaturas dos inputs), mas o TransactionInput, a fim de consolidação e de checagem posterior da validade da transação, precisa ser armazenado com sua assinatura.
 
-Esse tema da circularidade também eh encontrado no motivo da separacao do UTXO e do TransactionOutput: para consolidacao e armazenamento, o UTXO precisa do valor e do proprietario, mas nao eh possivel ter o outpoint no momento que se adiciona o output aa transacao, pois o OutPoint deve ser definido depois da checagem e consolidacao da transação. Unir os dois tipos criaria uma referencia circular, pois o TransactionOutput teria que conhecer seu proprio endereco antes de existir.
+Esse tema da circularidade também é encontrado no motivo da separação do UTXO e do TransactionOutput: para consolidação e armazenamento, o UTXO precisa do valor e do proprietario, mas não é possivel ter o outpoint no momento que se adiciona o output aa transação, pois o OutPoint deve ser definido depois da checagem e consolidação da transação. Unir os dois tipos criaria uma referencia circular, pois o TransactionOutput teria que conhecer seu proprio endereço antes de existir.
 
-\subsection{Implementação do sistema \textit{offline}}
+\subsubsubsection{A carteira online}
+A carteira é separada entre duas estruturas, a carteira pública e a carteira privada. A pública armazena a chave de verificação e tem funcoes que permitem a verificação de uma mensagem (que nessa aplicacao consiste em assinaturas de transações a serem verificadas), enquanto a privada, que armazena a chave de assinatura, contém a logica de assinatura.
 
-A implementação do sistema \textit{offline} é estreitamente relacionada com a implementação do resto da criptomoeda, visto que algumas acomodações foram feitas previamente para comportar essa parte do sistema.
+\begin{minted}{rust}
+pub struct Wallet {
+  pub(crate) public_key: PKey<Public>,
+  pub(crate) available_utxos: OrderedVec<UTXO>,
+}
+
+pub struct WalletPK {
+  pub(crate) private_key: PKey<Private>,
+}
+\end{minted}
+
+As structs PKey, providas pela crate openssl, representam as chaves de assinatura e de veriicacao. Na carteira pública, os available_utxos são um vetor ordenado utilizado para encontrar mais rapidamente os UTXOs a serem utilizados em cada operação.
+
+\subsubsection{O sistema \textit{online}}
+
+O sistema online segue um \textit{design} convencional, baseando-se amplamente, apesar de não estritamente, na implementação do Bitcoin. Diversas características presentes no Bitcoin, como um protocolo customizado de comunicação entre os nodes, foram dispensadas em nome de tornar o protótipo funcional no tempo disposto para a realização do trabalho.
+
+\subsubsubsection{Validação de blocos}
+
+Um bloco (referido nessa secao como b) é aceito pelo node se, em ordem:
+
+\begin{itemize}
+	\item b.previous_hash == chain.last_block().\textit{hash}.
+	\item b.height == chain.last_block().height + 1.
+	\item b.\textit{hash} confere com o \textit{hash} calculado a partir de b_header.
+	\item b.\textit{hash} cumpre os requisitos de dificuldade.
+	\item b.merkle_root confere com a arvore recalculada das transações do bloco.
+	\item b.transactions[0] é uma coibase e nenhuma outra transação o é.
+	\item Cada transação, na ordem em que for apresentada, confere com o \textit{set} de UTXOs E com as regras de transações offline.
+	\item O total da transação \textit{coinbase} <= BLOCK_REWARD + \sum{fees}.
+	\item b.offline_data é validado e confere com o que esta registrado na rede.
+\end{itemize}
+
+
+\subsubsection{O sistema \textit{offline}}
+
+Em adicao ao sistema online, que tem fundamentacao compartilhada a muitas criptomoedas, o sistema offline o grande ponto de inovacao deste trabalho, implementando conceitos novos no mundo das criptomoedas.
+
+
 
 \subsection{Testes e avaliação}
 
