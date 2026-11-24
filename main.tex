@@ -592,6 +592,20 @@ Um bloco (referido nessa seção como \texttt{b}) é aceito pelo node se, em ord
 	\item \texttt{b.offline\_data} é validado e confere com o que está registrado na rede.
 \end{itemize}
 
+\subsubsubsection{Mineração}
+
+A funcao de mineração \texttt{mining_loop} esta definida no arquivo src/node/miner.rs. Enquando o node esta executando, ela executa os seguintes passos:
+
+\begin{itemize}
+	\item Espera por \texttt{min_block_interval + jitter}, sendo jitter um nonce que diminui a frequencia de forks entre nodes que mineram em velocidades similares.
+	\item Constroi um Block::candidate utilizando a transaction_pool.
+	\item Tenta minerar o bloco, parando a cada 4096 tentativas para checar se o utlimo bloco da cadeia ainda eh o mesmo, ou seja, se nenhum bloco novo foi adicionado.
+	\item Se eh bem sucedido na mineracao, tenta adicionar o bloco recem minerado no topo da cadeia.
+\end{itemize}
+
+A dificuldade de mineracao eh uma constante (PROOF_OF_WORK_DIFFICULTY, no codigo), pois recalcula-la adicionaria uma camada de complexidade aa moeda que nao seria necessaria para fins de prototipagem.
+
+\subsubsubsection{Conflitos e resolucao de cadeia}
 
 \subsubsection{O sistema \textit{offline}}
 
